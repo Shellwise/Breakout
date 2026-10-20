@@ -1,3 +1,4 @@
+
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -6,11 +7,13 @@ public class BrickSpawner : MonoBehaviour
 {
     public GameObject breakablePrefab;
     public GameObject unbreakablePrefab;
+
     public Vector2 startPosition = new Vector2(-8f, 3f);
     public float spacingX = 2f;
     public float spacingY = 1f;
 
     List<GameObject> bricks = new List<GameObject>();
+
     int remainingBreakable;
     bool respawning;
 
@@ -26,23 +29,34 @@ public class BrickSpawner : MonoBehaviour
 
         List<Vector2> positions = new List<Vector2>();
 
-        for (int row = 0; row < 3; row++)
-            for (int col = 0; col < 9; col++)
+        // 4 rows up and 5 bricks sideways
+        for (int row = 0; row < 4; row++)
+        {
+            for (int col = 0; col < 5; col++)
+            {
                 positions.Add(new Vector2(col, -row));
+            }
+        }
 
+        // Randomly choose 2 to 4 unbreakable bricks
         int unbreakableCount = Random.Range(2, 5);
         remainingBreakable = positions.Count - unbreakableCount;
 
+        // Shuffle brick positions
         for (int i = 0; i < positions.Count; i++)
         {
             int randomIndex = Random.Range(i, positions.Count);
+
             Vector2 temp = positions[i];
             positions[i] = positions[randomIndex];
             positions[randomIndex] = temp;
         }
 
+        // Spawn all bricks
         for (int i = 0; i < positions.Count; i++)
+        {
             SpawnBrick(positions[i], i >= unbreakableCount);
+        }
     }
 
     void SpawnBrick(Vector2 gridPosition, bool breakable)
@@ -53,10 +67,12 @@ public class BrickSpawner : MonoBehaviour
         );
 
         GameObject prefab = breakable ? breakablePrefab : unbreakablePrefab;
+
         GameObject brick = Instantiate(prefab, pos, Quaternion.identity);
         brick.SetActive(true);
 
-        SpriteRenderer[] renderers = brick.GetComponentsInChildren<SpriteRenderer>(true);
+        SpriteRenderer[] renderers =
+            brick.GetComponentsInChildren<SpriteRenderer>(true);
 
         foreach (SpriteRenderer sr in renderers)
         {
@@ -76,6 +92,7 @@ public class BrickSpawner : MonoBehaviour
 
         behaviour.isBreakable = breakable;
         behaviour.spawner = this;
+
         bricks.Add(brick);
     }
 
@@ -98,8 +115,12 @@ public class BrickSpawner : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
 
         foreach (GameObject brick in bricks)
+        {
             if (brick != null)
+            {
                 Destroy(brick);
+            }
+        }
 
         bricks.Clear();
         SpawnGrid();
