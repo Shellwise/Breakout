@@ -5363,6 +5363,8 @@ MonoBehaviour:
   player1: {fileID: 0}
   player2: {fileID: 804162468}
   size: 1
+  minSpeed: 2
+  maxSpeed: 12
 --- !u!58 &343414973
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6285,6 +6287,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::BatBehaviour
   scoreText: {fileID: 0}
+  minWidth: 0.5
+  maxWidth: 6
+  powerUpDuration: 5
 --- !u!70 &804162469
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -7397,6 +7402,8 @@ MonoBehaviour:
   volume: 1
   soundMultiplier: 5
   particlePrefab: {fileID: 0}
+  powerUpPrefab: {fileID: 0}
+  dropChance: 0.25
 --- !u!1 &2133495390
 GameObject:
   m_ObjectHideFlags: 0
@@ -7554,6 +7561,8 @@ MonoBehaviour:
   volume: 1
   soundMultiplier: 5
   particlePrefab: {fileID: 220001606}
+  powerUpPrefab: {fileID: 1362599719120521830, guid: ae7f0829e10b36c43841d834fbb9d5e8, type: 3}
+  dropChance: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

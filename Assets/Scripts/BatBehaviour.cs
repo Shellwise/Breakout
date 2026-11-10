@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class BatBehaviour : MonoBehaviour
 {
@@ -7,18 +8,24 @@ public class BatBehaviour : MonoBehaviour
     int score = 0;
     public TextMeshProUGUI scoreText;
 
+    [Header("Power Up Settings")]
+    public float minWidth = 0.5f;
+    public float maxWidth = 6f;
+    public float powerUpDuration = 5f;
 
+    Vector3 baseScale;
+    Coroutine resetRoutine;
 
+    void Awake()
+    {
+        baseScale = transform.localScale;
+    }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created 
     void Start()
     {
 
     }
 
-
-
-    // Update is called once per frame
     void Update()
     {
         if (gameObject.name == "MainBat")
@@ -30,6 +37,25 @@ public class BatBehaviour : MonoBehaviour
         }
     }
 
+    public void ChangeWidth(float multiplier)
+    {
+        // Always calculate from the original size so effects don't stack
+        Vector3 s = baseScale;
+        s.x = Mathf.Clamp(baseScale.x * multiplier, minWidth, maxWidth);
+        transform.localScale = s;
+
+        if (resetRoutine != null)
+            StopCoroutine(resetRoutine);
+        resetRoutine = StartCoroutine(ResetWidthAfterDelay());
+    }
+
+    IEnumerator ResetWidthAfterDelay()
+    {
+        yield return new WaitForSeconds(powerUpDuration);
+        transform.localScale = baseScale;
+        resetRoutine = null;
+    }
+
     public void IncreaseScore()
     {
     }
@@ -38,14 +64,4 @@ public class BatBehaviour : MonoBehaviour
     {
         return score;
     }
-
-
-
-
-
-
-
-
-
-
 }

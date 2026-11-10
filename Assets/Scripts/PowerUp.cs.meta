@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 6b8c3122ab860d143a14c9119f0a046b
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - widerBatIcon: {fileID: -168421969075237668, guid: 9e31c2997a1a3a34dae6cad5a1ffbb30, type: 3}
+  - slimmerBatIcon: {fileID: -5513050994037168576, guid: 7558dedd938c2d14d896b17a716da5fb, type: 3}
+  - fasterBallIcon: {fileID: -3337038689812066966, guid: 5a315eb8377dae941b4f288acae0c296, type: 3}
+  - slowerBallIcon: {fileID: 4483504832982471387, guid: 28d546e0b849324408e6a2d9dcaf0c2d, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
