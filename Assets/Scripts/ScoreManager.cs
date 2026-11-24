@@ -31,6 +31,13 @@ public class ScoreManager : MonoBehaviour
         return score;
     }
 
+    // Called by GameStateManager when you press Retry
+    public void ResetScore()
+    {
+        score = 0;
+        UpdateText();
+    }
+
     void UpdateText()
     {
         if (scoreText != null)

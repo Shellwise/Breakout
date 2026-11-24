@@ -1,4 +1,3 @@
-
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +18,23 @@ public class BrickSpawner : MonoBehaviour
 
     void Start()
     {
+        SpawnGrid();
+    }
+
+    // Called by GameStateManager on Retry and Continue:
+    // clears every brick and spawns a brand new random grid
+    public void ResetGrid()
+    {
+        StopAllCoroutines();
+        respawning = true;              // so removing old bricks doesn't count as breaking them
+
+        foreach (GameObject brick in bricks)
+        {
+            if (brick != null)
+                DestroyImmediate(brick);
+        }
+
+        bricks.Clear();
         SpawnGrid();
     }
 
@@ -106,7 +122,13 @@ public class BrickSpawner : MonoBehaviour
         if (remainingBreakable <= 0)
         {
             respawning = true;
-            StartCoroutine(RespawnGrid());
+
+            // Show the "Continue" screen. The new grid spawns when Continue is pressed.
+            GameStateManager gameState = FindFirstObjectByType<GameStateManager>();
+            if (gameState != null)
+                gameState.Win();
+            else
+                StartCoroutine(RespawnGrid());
         }
     }
 
